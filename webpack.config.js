@@ -29,6 +29,10 @@ let config = {
         test: /\.vue$/,
         loader: 'vue-loader'
       },
+      {
+        test: /\.js$/,
+        use: 'babel-loader'
+      },
       { test: /\.html$/, use: "vue-template-loader"},
       {
         test: /\.scss$/,
