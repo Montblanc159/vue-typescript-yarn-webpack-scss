@@ -1,6 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const dev = process.env.NODE_ENV === "development"
 
 
 let config = {
@@ -10,6 +12,7 @@ let config = {
     publicPath: '/dist',
     filename: 'main.js'
   },
+  devtool: dev ? "cheap-module-eval-source-map" : "source-map",
   resolve: {
     extensions: ['.js', '.ts', '.vue']
   },
@@ -57,6 +60,12 @@ let config = {
   plugins: [
     new VueLoaderPlugin()
   ]
+}
+
+if (!dev) {
+  config.plugins.push(new UglifyJSPlugin({
+    sourceMap: true
+  }))
 }
 
 module.exports = config
