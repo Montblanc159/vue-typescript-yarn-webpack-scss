@@ -2,10 +2,12 @@ const path = require('path')
 const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const dev = process.env.NODE_ENV === "development"
 
 
 let config = {
+  mode: dev ? "development" : "production",
   entry: './src/main.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -40,7 +42,7 @@ let config = {
       {
         test: /\.scss$/,
         use: [
-          "style-loader",
+          dev ? "style-loader" : MiniCssExtractPlugin.loader,
           "css-loader",
           {
             loader: "postcss-loader",
@@ -58,7 +60,11 @@ let config = {
     ]
   },
   plugins: [
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css"
+    })
   ]
 }
 
