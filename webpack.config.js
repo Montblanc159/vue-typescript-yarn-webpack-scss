@@ -26,10 +26,15 @@ let config = {
     }
   },
   devServer: {
-    noInfo: true
+    stats: 'minimal'
   },
   module: {
     rules: [
+      {
+        test: /\.ts$/,
+        enforce: 'pre',
+        use: 'eslint-loader'
+      },
       {
         test: /\.ts$/,
         loader: 'ts-loader',
