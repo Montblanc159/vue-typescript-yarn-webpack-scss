@@ -3,7 +3,7 @@ import {Vue, Component, Prop} from 'vue-property-decorator'
 // import Style from './App.scss'
 // import Template from './App.html'
 
-import Render from './App.html?style=./App.scss'
+import Render from '@vue-template/App.html?style=@css/App.scss'
 //
 // @Template
 //
